@@ -1,0 +1,31 @@
+세 개의 주요 섹션
+  1. Setting Up Your Jetson Nano
+과정 프로젝트를 위한 하드웨어 및 소프트웨어를 설정하는 단계별 가이드
+  2. Image Classification(이미지 분류)
+딥 러닝을 활용하여 이미지를 분류하는 프로젝트 생성을 위한 배경 정보 및 지침  
+  3. Image Regression
+라이브 카메라 이미지에서 이미지 피쳐를 제한하고 추적할 수 있는 프로젝트 구축하기
+ 카메라 설치 주의사항: 카메라의 리본 케이블을 연결하여 금속면이 나노 보드를 향하도록 하고 플라스틱 면을 아래로 부드럽게 놀려 커넥터를 걸쇠로 잠근다. 
+카메라 동작 확인(nvidia 터미널)
+   dli@dli-desktop:~$ git clone https://github.com/jetsonhacks/USB-Camera.git(CSI 카메라의 경우 CSI-Camera.git을 입력)
+   dli@dli-desktop:~$ ls
+   dli@dli-desktop:~$ cd USB-Camera
+   dli@dli-desktop:~/USB-Camera$ ls
+   dli@dli-desktop:~/USB-Camera$ python3 usb-camera-gst.py(CSI 카메라의 경우 simple_camera.py 입력)
+윈도우 파워쉘 사용법
+     window powershell 관리자 권한으로 실행
+     cd .. 입력 후 한 번 더 입력
+     ssh dli@192.168.55.1 입력
+정상적으로 연결됐다면 다음 과정을 실행한다.
+     ssh <username>@192.168.55.1
+     요청 시 설정한 암호를 입력한다.
+     mkdir -p ~/nvdli-data(데이터 디렉토리 추가)
+     echo "sudo docker run --runtime nvidia -it --rm --network host \
+    --memory=500M --memory-swap=4G \
+    --volume ~/nvdli-data:/nvdli-nano/data \
+    --volume /tmp/argus_socket:/tmp/argus_socket \
+    --device /dev/video0 \
+    nvcr.io/nvidia/dli/dli-nano-ai:v2.0.2-r32.7.1kr" > docker_dli_run.sh(CSI 카메라를 이용하였기에 --volume /tmp/argus_socket:/tmp/argus_socket을 명령어에 추가했다.)
+    chmod +x docker_dli_run.sh
+    ./docker_dli_run.sh
+    다운 완료 될때까지 기다린다.
