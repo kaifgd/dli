@@ -29,3 +29,5 @@
     chmod +x docker_dli_run.sh
     ./docker_dli_run.sh
     다운 완료 될때까지 기다린다.
+다운이 완료되면 주피터랩 주소가 나온다. 
+주소를 치고 로그인한다.
